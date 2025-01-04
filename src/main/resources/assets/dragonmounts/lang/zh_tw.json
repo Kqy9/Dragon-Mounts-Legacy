@@ -11,7 +11,7 @@
   "dragon_breed.dragonmounts.water": "水之龍",
 
   "item.dragonmounts.spawn_egg.dragonmounts.aether": "天境龍刷怪蛋",
-  "item.dragonmounts.spawn_egg.dragonmounts.fire": "火龍刷怪蛋",
+  "item.dragonmounts.spawn_egg.dragonmounts.fire": "火之龍刷怪蛋",
   "item.dragonmounts.spawn_egg.dragonmounts.end": "終界龍刷怪蛋",
   "item.dragonmounts.spawn_egg.dragonmounts.forest": "森林龍刷怪蛋",
   "item.dragonmounts.spawn_egg.dragonmounts.ghost": "鬼影龍刷怪蛋",
@@ -30,7 +30,7 @@
   "block.dragonmounts.dragon_egg.hatch_stage.3": "能聽到嗎，蛋裡有龍的聲音",
 
   "block.dragonmounts.dragon_egg.dragonmounts.aether": "天境龍蛋",
-  "block.dragonmounts.dragon_egg.dragonmounts.fire": "火龍蛋",
+  "block.dragonmounts.dragon_egg.dragonmounts.fire": "火之龍蛋",
   "block.dragonmounts.dragon_egg.dragonmounts.end": "終界龍蛋",
   "block.dragonmounts.dragon_egg.dragonmounts.forest": "森林龍蛋",
   "block.dragonmounts.dragon_egg.dragonmounts.ghost": "鬼影龍蛋",
@@ -46,8 +46,8 @@
   "mount.dragon.camera_controls.enabled": "現在，%s 將升往你的位置",
   "mount.dragon.camera_controls.disabled": "現在，%s 將只依照你的指令上升",
 
-  "subtitles.entity.dragon.ambient": "龍 : 咆哮",
-  "subtitles.entity.dragon.step": "龍 : 跺脚",
-  "subtitles.entity.dragon.death": "龍 : 哀嘆",
-  "subtitles.entity.dragon.ambient.ghost": "龍 : 咆哮"
+  "subtitles.entity.dragon.ambient": "龍 ： 咆哮",
+  "subtitles.entity.dragon.step": "龍 ： 跺脚",
+  "subtitles.entity.dragon.death": "龍 ： 哀嘆",
+  "subtitles.entity.dragon.ambient.ghost": "龍 ： 咆哮"
 }
