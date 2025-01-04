@@ -1,0 +1,53 @@
+{
+  "entity.dragonmounts.dragon": "龍",
+
+  "dragon_breed.dragonmounts.aether": "玄冥龍",
+  "dragon_breed.dragonmounts.fire": "燃焰龍",
+  "dragon_breed.dragonmounts.end": "終眇龍",
+  "dragon_breed.dragonmounts.forest": "林木龍",
+  "dragon_breed.dragonmounts.ghost": "靈影龍",
+  "dragon_breed.dragonmounts.ice": "净冰龍",
+  "dragon_breed.dragonmounts.nether": "焱界龍",
+  "dragon_breed.dragonmounts.water": "流水龍",
+
+  "item.dragonmounts.spawn_egg.dragonmounts.aether": "玄冥龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.fire": "火龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.end": "終界龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.forest": "森林龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.ghost": "靈影龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.ice": "净冰龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.nether": "地獄龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.water": "流水龍之卵",
+
+  "block.dragonmounts.dragon_egg.change_breeds": "於創法下：用卵於龍，可更龍之本色",
+  "block.dragonmounts.dragon_egg.desc1": "用",
+  "block.dragonmounts.dragon_egg.desc2": "變",
+
+  "block.dragonmounts.dragon_egg.remaining_time": "將孵於 %s 秒",
+  "block.dragonmounts.dragon_egg.hatch_stage.0": "久而得生",
+  "block.dragonmounts.dragon_egg.hatch_stage.1": "未成一刻",
+  "block.dragonmounts.dragon_egg.hatch_stage.2": "見其所移",
+  "block.dragonmounts.dragon_egg.hatch_stage.3": "聞之有聲",
+
+  "block.dragonmounts.dragon_egg.dragonmounts.aether": "玄冥龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.fire": "火龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.end": "終界龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.forest": "森林龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.ghost": "靈影龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.ice": "净冰龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.nether": "地獄龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.water": "流水龍卵",
+
+  "key.category.dragonmounts": "西龍騎士：重製版",
+  "key.dragonmounts.flight_descent": "降落",
+  "key.dragonmounts.camera_flight": "飛控",
+
+  "mount.dragon.vertical_controls": "[ %s ] 以升；[ %s ] 以降",
+  "mount.dragon.camera_controls.enabled": "%s 始隨君跡而行",
+  "mount.dragon.camera_controls.disabled": "%s 始聞君令而升",
+
+  "subtitles.entity.dragon.ambient": "龍哮",
+  "subtitles.entity.dragon.step": "龍踏",
+  "subtitles.entity.dragon.death": "龍嘆",
+  "subtitles.entity.dragon.ambient.ghost": "龍哮"
+}
