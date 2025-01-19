@@ -1,0 +1,54 @@
+{
+  "entity.dragonmounts.dragon": "龙",
+
+  "dragon_breed.dragonmounts.aether": "天境龙",
+  "dragon_breed.dragonmounts.fire": "炽焰龙",
+  "dragon_breed.dragonmounts.end": "末影龙",
+  "dragon_breed.dragonmounts.forest": "森林龙",
+  "dragon_breed.dragonmounts.ghost": "幽灵龙",
+  "dragon_breed.dragonmounts.ice": "冰晶龙",
+  "dragon_breed.dragonmounts.nether": "下界龙",
+  "dragon_breed.dragonmounts.water": "涟渊龙",
+
+  "item.dragonmounts.spawn_egg.dragonmounts.aether": "天境龙刷怪蛋",
+  "item.dragonmounts.spawn_egg.dragonmounts.fire": "炽焰龙刷怪蛋",
+  "item.dragonmounts.spawn_egg.dragonmounts.end": "末影龙刷怪蛋",
+  "item.dragonmounts.spawn_egg.dragonmounts.forest": "森林龙刷怪蛋",
+  "item.dragonmounts.spawn_egg.dragonmounts.ghost": "幽灵龙刷怪蛋",
+  "item.dragonmounts.spawn_egg.dragonmounts.ice": "冰晶龙刷怪蛋",
+  "item.dragonmounts.spawn_egg.dragonmounts.nether": "下界龙刷怪蛋",
+  "item.dragonmounts.spawn_egg.dragonmounts.water": "涟渊龙刷怪蛋",
+
+
+  "block.dragonmounts.dragon_egg.change_breeds": "于创造模式下将蛋与龙交互，将改变此龙之种类为蛋所指向的种类",
+  "block.dragonmounts.dragon_egg.desc1": "交互",
+  "block.dragonmounts.dragon_egg.desc2": "变种",
+
+  "block.dragonmounts.dragon_egg.remaining_time": "将于 %s 秒后孵化",
+  "block.dragonmounts.dragon_egg.hatch_stage.0": "看上去，这颗龙蛋还需很久才能孵化",
+  "block.dragonmounts.dragon_egg.hatch_stage.1": "别急，还没到孵出来的时候呢",
+  "block.dragonmounts.dragon_egg.hatch_stage.2": "哦！它动了！快了快了",
+  "block.dragonmounts.dragon_egg.hatch_stage.3": "能听到吗，蛋里有龙的声音",
+
+  "block.dragonmounts.dragon_egg.dragonmounts.aether": "天境龙蛋",
+  "block.dragonmounts.dragon_egg.dragonmounts.fire": "炽焰龙蛋",
+  "block.dragonmounts.dragon_egg.dragonmounts.end": "末影龙蛋",
+  "block.dragonmounts.dragon_egg.dragonmounts.forest": "森林龙蛋",
+  "block.dragonmounts.dragon_egg.dragonmounts.ghost": "幽灵龙蛋",
+  "block.dragonmounts.dragon_egg.dragonmounts.ice": "冰晶龙蛋",
+  "block.dragonmounts.dragon_egg.dragonmounts.nether": "下界龙蛋",
+  "block.dragonmounts.dragon_egg.dragonmounts.water": "涟渊龙蛋",
+
+  "key.category.dragonmounts": "龙骑士：重制版",
+  "key.dragonmounts.flight_descent": "降落",
+  "key.dragonmounts.camera_flight": "飞行控制",
+
+  "mount.dragon.vertical_controls": "按下 %s 以上升；%s 以下降",
+  "mount.dragon.camera_controls.enabled": "现在，%s 将升往你的位置",
+  "mount.dragon.camera_controls.disabled": "现在，%s 将只依照你的指令上升",
+
+  "subtitles.entity.dragon.ambient": "龙 ： 咆哮",
+  "subtitles.entity.dragon.step": "龙 ： 踏跺",
+  "subtitles.entity.dragon.death": "龙 ： 哀鸣",
+  "subtitles.entity.dragon.ambient.ghost": "龙 ： 咆哮"
+}
