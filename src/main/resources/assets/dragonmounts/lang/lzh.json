@@ -11,12 +11,12 @@
   "dragon_breed.dragonmounts.water": "沧澜龍",
 
   "item.dragonmounts.spawn_egg.dragonmounts.aether": "玄冥龍之卵",
-  "item.dragonmounts.spawn_egg.dragonmounts.fire": "火龍之卵",
-  "item.dragonmounts.spawn_egg.dragonmounts.end": "終界龍之卵",
-  "item.dragonmounts.spawn_egg.dragonmounts.forest": "森林龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.fire": "燃焰龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.end": "終眇龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.forest": "林木龍之卵",
   "item.dragonmounts.spawn_egg.dragonmounts.ghost": "靈影龍之卵",
   "item.dragonmounts.spawn_egg.dragonmounts.ice": "净冰龍之卵",
-  "item.dragonmounts.spawn_egg.dragonmounts.nether": "地獄龍之卵",
+  "item.dragonmounts.spawn_egg.dragonmounts.nether": "焱界龍之卵",
   "item.dragonmounts.spawn_egg.dragonmounts.water": "沧澜龍之卵",
 
   "block.dragonmounts.dragon_egg.change_breeds": "於創法下：用卵於龍，可更龍之本色",
@@ -30,12 +30,12 @@
   "block.dragonmounts.dragon_egg.hatch_stage.3": "聞之有聲",
 
   "block.dragonmounts.dragon_egg.dragonmounts.aether": "玄冥龍卵",
-  "block.dragonmounts.dragon_egg.dragonmounts.fire": "火龍卵",
-  "block.dragonmounts.dragon_egg.dragonmounts.end": "終界龍卵",
-  "block.dragonmounts.dragon_egg.dragonmounts.forest": "森林龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.fire": "燃焰龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.end": "終眇龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.forest": "林木龍卵",
   "block.dragonmounts.dragon_egg.dragonmounts.ghost": "靈影龍卵",
   "block.dragonmounts.dragon_egg.dragonmounts.ice": "净冰龍卵",
-  "block.dragonmounts.dragon_egg.dragonmounts.nether": "地獄龍卵",
+  "block.dragonmounts.dragon_egg.dragonmounts.nether": "焱界龍卵",
   "block.dragonmounts.dragon_egg.dragonmounts.water": "沧澜龍卵",
 
   "key.category.dragonmounts": "西龍騎士：重製版",

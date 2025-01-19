@@ -20,7 +20,7 @@
   "item.dragonmounts.spawn_egg.dragonmounts.water": "涟渊龙刷怪蛋",
 
 
-  "block.dragonmounts.dragon_egg.change_breeds": "创造模式：将蛋与龙交互，将改变此龙之种类为蛋所指向的种类",
+  "block.dragonmounts.dragon_egg.change_breeds": "于创造模式下将蛋与龙交互，将改变此龙之种类为蛋所指向的种类",
   "block.dragonmounts.dragon_egg.desc1": "交互",
   "block.dragonmounts.dragon_egg.desc2": "变种",
 
