@@ -1,0 +1,49 @@
+{
+  "entity.dragonmounts.dragon": "Дракон",
+
+  "dragon_breed.dragonmounts.aether": "Эфирный дракон",
+  "dragon_breed.dragonmounts.fire": "Огненный дракон",
+  "dragon_breed.dragonmounts.end": "Дракон Энда",
+  "dragon_breed.dragonmounts.forest": "Лесной дракон",
+  "dragon_breed.dragonmounts.ghost": "Призрачный дракон",
+  "dragon_breed.dragonmounts.ice": "Ледяной дракон",
+  "dragon_breed.dragonmounts.nether": "Незерский дракон",
+  "dragon_breed.dragonmounts.water": "Водяной дракон",
+
+  "item.dragonmounts.spawn_egg.dragonmounts.aether": "Яйцо призыва эфирного дракона",
+  "item.dragonmounts.spawn_egg.dragonmounts.fire": "Яйцо призыва огненного дракона",
+  "item.dragonmounts.spawn_egg.dragonmounts.end": "Яйцо призыва дракона Энда",
+  "item.dragonmounts.spawn_egg.dragonmounts.forest": "Яйцо призыва лесного дракона",
+  "item.dragonmounts.spawn_egg.dragonmounts.ghost": "Яйцо призыва призрачного дракона",
+  "item.dragonmounts.spawn_egg.dragonmounts.ice": "Яйцо призыва ледяного дракона",
+  "item.dragonmounts.spawn_egg.dragonmounts.nether": "Яйцо призыва незерского дракона",
+  "item.dragonmounts.spawn_egg.dragonmounts.water": "Яйцо призыва водяного дракона",
+
+  "block.dragonmounts.dragon_egg.remaining_time": "Вылупится через %s секунд.",
+  "block.dragonmounts.dragon_egg.hatch_stage.0": "Похоже, что вылупление этого яйца займёт много времени.",
+  "block.dragonmounts.dragon_egg.hatch_stage.1": "Что же из этого вылупится? Кажется, до вылупления ещё далеко.",
+  "block.dragonmounts.dragon_egg.hatch_stage.2": "Иногда кажется, что оно шевелится. Возможно, уже близко к вылуплению.",
+  "block.dragonmounts.dragon_egg.hatch_stage.3": "Изнутри доносятся звуки! Оно скоро вылупится!",
+
+  "block.dragonmounts.dragon_egg.dragonmounts.aether": "Яйцо эфирного дракона",
+  "block.dragonmounts.dragon_egg.dragonmounts.fire": "Яйцо огненного дракона",
+  "block.dragonmounts.dragon_egg.dragonmounts.end": "Яйцо дракона Энда",
+  "block.dragonmounts.dragon_egg.dragonmounts.forest": "Яйцо лесного дракона",
+  "block.dragonmounts.dragon_egg.dragonmounts.ghost": "Яйцо призрачного дракона",
+  "block.dragonmounts.dragon_egg.dragonmounts.ice": "Яйцо ледяного дракона",
+  "block.dragonmounts.dragon_egg.dragonmounts.nether": "Яйцо незерского дракона",
+  "block.dragonmounts.dragon_egg.dragonmounts.water": "Яйцо водяного дракона",
+
+  "key.category.dragonmounts": "Ездовые Драконы",
+  "key.dragonmounts.flight_descent": "Полёт вниз",
+  "key.dragonmounts.camera_flight": "Команды полёта",
+
+  "mount.dragon.vertical_controls": "Нажмите %s для подъёма и %s для снижения",
+  "mount.dragon.camera_controls.enabled": "Теперь %s будет подниматься в вашем направлении",
+  "mount.dragon.camera_controls.disabled": "Теперь %s будет подниматься только по вашей команде",
+
+  "subtitles.entity.dragon.ambient": "Дракон говорит",
+  "subtitles.entity.dragon.step": "Драконий топот",
+  "subtitles.entity.dragon.death": "Дракон визжит",
+  "subtitles.entity.dragon.ambient.ghost": "Дракон говорит"
+}
