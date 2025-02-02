@@ -525,7 +525,8 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
         }
 
         // ride on
-        if (isTamedFor(player) && isSaddled() && !isHatchling() && !isFood(stack))
+//        if (isTamedFor(player) && isSaddled() && !isHatchling() && !isFood(stack))
+        if (isSaddled() && !isHatchling() && !isFood(stack) && this.canAddPassenger(player))
         {
             if (isServer())
             {
@@ -936,6 +937,10 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
         return !isHatchling() && !hasControllingPassenger() && super.canAttack(target);
     }
 
+    public boolean canAddPassenger(Entity passenger) {
+        return this.getPassengers().size() <= 2;
+    }
+
     /**
      * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
      * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
@@ -974,19 +979,50 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
     @Override
     protected void positionRider(Entity ridden, MoveFunction pCallback)
     {
-        if (hasPassenger(ridden))
-        {
-            var rePos = new Vec3(0, getPassengersRidingOffset() + ridden.getMyRidingOffset(), getScale())
+//        if (hasPassenger(ridden))
+//        {
+//            var rePos = new Vec3(0, getPassengersRidingOffset() + ridden.getMyRidingOffset(), getScale())
+//                    .yRot((float) Math.toRadians(-yBodyRot))
+//                    .add(position());
+//            pCallback.accept(ridden, rePos.x, rePos.y, rePos.z);
+//
+//            // fix rider rotation
+//            if (getFirstPassenger() instanceof LivingEntity)
+//            {
+//                ridden.xRotO = ridden.getXRot();
+//                ridden.yRotO = ridden.getYRot();
+//                ridden.setYBodyRot(yBodyRot);
+//            }
+//        }
+
+        // Get the list of passengers
+        List<Entity> passengers = getPassengers();
+
+        if (passengers.size() > 0) {
+            // Position and rotation for the first passenger (already in your original code)
+            Entity firstPassenger = passengers.get(0);
+            var rePos = new Vec3(0, getPassengersRidingOffset() + firstPassenger.getMyRidingOffset(), getScale())
                     .yRot((float) Math.toRadians(-yBodyRot))
                     .add(position());
-            pCallback.accept(ridden, rePos.x, rePos.y, rePos.z);
+            pCallback.accept(firstPassenger, rePos.x, rePos.y, rePos.z);
 
-            // fix rider rotation
-            if (getFirstPassenger() instanceof LivingEntity)
-            {
-                ridden.xRotO = ridden.getXRot();
-                ridden.yRotO = ridden.getYRot();
-                ridden.setYBodyRot(yBodyRot);
+            // Fix rotation for first passenger
+            firstPassenger.xRotO = firstPassenger.getXRot();
+            firstPassenger.yRotO = firstPassenger.getYRot();
+            firstPassenger.setYBodyRot(yBodyRot);
+
+            // If there is a second passenger
+            if (passengers.size() > 1) {
+                Entity secondPassenger = passengers.get(1);
+                var rePosSecond = new Vec3(0, getPassengersRidingOffset() + secondPassenger.getMyRidingOffset(), getScale() - 1.2f)
+                        .yRot((float) Math.toRadians(-yBodyRot))
+                        .add(position());
+                pCallback.accept(secondPassenger, rePosSecond.x, rePosSecond.y, rePosSecond.z);
+
+                // Fix rotation for second passenger
+                secondPassenger.xRotO = secondPassenger.getXRot();
+                secondPassenger.yRotO = secondPassenger.getYRot();
+                secondPassenger.setYBodyRot(yBodyRot);
             }
         }
     }
