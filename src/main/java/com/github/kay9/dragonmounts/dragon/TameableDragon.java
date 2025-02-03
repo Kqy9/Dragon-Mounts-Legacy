@@ -9,10 +9,7 @@ import com.github.kay9.dragonmounts.client.KeyMappings;
 import com.github.kay9.dragonmounts.client.MountCameraManager;
 import com.github.kay9.dragonmounts.client.MountControlsMessenger;
 import com.github.kay9.dragonmounts.data.CrossBreedingManager;
-import com.github.kay9.dragonmounts.dragon.ai.DragonBodyController;
-import com.github.kay9.dragonmounts.dragon.ai.DragonBreedGoal;
-import com.github.kay9.dragonmounts.dragon.ai.DragonFollowOwnerGoal;
-import com.github.kay9.dragonmounts.dragon.ai.DragonMoveController;
+import com.github.kay9.dragonmounts.dragon.ai.*;
 import com.github.kay9.dragonmounts.dragon.breed.BreedRegistry;
 import com.github.kay9.dragonmounts.dragon.breed.DragonBreed;
 import com.github.kay9.dragonmounts.dragon.egg.HatchableEggBlock;
@@ -50,6 +47,7 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SaddleItem;
@@ -82,7 +80,7 @@ import static net.minecraft.world.entity.ai.attributes.Attributes.*;
  * @author Kay9
  */
 @SuppressWarnings({"deprecation", "SameReturnValue"})
-public class TameableDragon extends TamableAnimal implements Saddleable, FlyingAnimal, PlayerRideable
+public class TameableDragon extends TamableAnimal implements Saddleable, FlyingAnimal, PlayerRideable, KeybindUsingMount
 {
     // base attributes
     public static final double BASE_SPEED_GROUND = 0.3; // actual speed varies from ground friction
@@ -1238,5 +1236,18 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
     public boolean hasLocalDriver()
     {
         return getControllingPassenger() instanceof Player p && p.isLocalPlayer();
+    }
+
+    @Override
+    public void onKeyPacket(Entity keyPresser) {
+        if (keyPresser.isPassengerOfSameVehicle(this)) {
+            if (isServer()) {
+                Vec3 look = this.getLookAngle();
+                Level level = this.level();
+                LargeFireball largefireball = new LargeFireball(level, this, look.x, look.y, look.z, 1);
+                largefireball.setPos(this.getX() + look.x * 4.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + look.z * 4.0D);
+                level.addFreshEntity(largefireball);
+            }
+        }
     }
 }
