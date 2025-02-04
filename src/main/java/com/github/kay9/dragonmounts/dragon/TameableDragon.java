@@ -1245,7 +1245,8 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
                 Vec3 look = this.getLookAngle();
                 Level level = this.level();
                 LargeFireball largefireball = new LargeFireball(level, this, look.x, look.y, look.z, 1);
-                largefireball.setPos(this.getX() + look.x * 4.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + look.z * 4.0D);
+                largefireball.setOwner(keyPresser);
+                largefireball.setPos(this.getX() + look.x * 8.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + look.z * 8.0D);
                 level.addFreshEntity(largefireball);
             }
         }
