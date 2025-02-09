@@ -1,4 +1,8 @@
 {
+  "attributes": {
+    "minecraft:generic.armor_toughness": 4.0,
+    "minecraft:generic.max_health": 50.0
+  },
   "abilities": [
     {
       "type": "dragonmounts:reaper_step"
@@ -25,6 +29,10 @@
     }
   ],
   "immunities": [
+    "minecraft:in_wall",
+    "minecraft:arrow",
+    "minecraft:on_fire",
+    "minecraft:in_fire",
     "minecraft:drown",
     "minecraft:cactus",
     "minecraft:sweet_berry_bush",

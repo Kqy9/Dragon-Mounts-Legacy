@@ -1,4 +1,7 @@
 {
+  "attributes": {
+    "minecraft:generic.movement_speed": 0.5
+  },
   "abilities": [
     {
       "type": "dragonmounts:green_toes"
@@ -18,6 +21,8 @@
     "type": "minecraft:happy_villager"
   },
   "immunities": [
+    "minecraft:on_fire",
+    "minecraft:in_fire",
     "minecraft:cactus",
     "minecraft:sweet_berry_bush",
     "minecraft:dragon_breath"

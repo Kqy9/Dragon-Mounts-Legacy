@@ -59,26 +59,26 @@ class DragonBreedProvider extends DatapackBuiltinEntriesProvider
                             list(
                                     new HeightHabitat(3, false, 200)
                             ),
-                            immunities(context),
+                            immunities(context, DamageTypes.ON_FIRE, DamageTypes.IN_FIRE),
                             Optional.empty());
 
                     registerBuiltIn(context, DragonBreed.BuiltIn.END,
                             0x161616,
                             0xff63e8,
                             Optional.of(ParticleTypes.PORTAL),
-                            of(Attributes.MAX_HEALTH, TameableDragon.BASE_HEALTH * 1.25),
+                            of(Attributes.MAX_HEALTH, TameableDragon.BASE_HEALTH * 1.5),
                             list(), // teleport ability?
                             list(
                                     DragonBreathHabitat.INSTANCE
                             ),
-                            immunities(context),
+                            immunities(context, DamageTypes.ON_FIRE, DamageTypes.IN_FIRE),
                             Optional.empty());
 
                     registerBuiltIn(context, DragonBreed.BuiltIn.FIRE,
                             0x912400,
                             0xff9819,
                             Optional.of(ParticleTypes.FLAME),
-                            of(),
+                            of(Attributes.ATTACK_DAMAGE, TameableDragon.BASE_DAMAGE + 2),
                             list(
                                     HotFeetAbility.INSTANCE
                             ),
@@ -92,7 +92,7 @@ class DragonBreedProvider extends DatapackBuiltinEntriesProvider
                             0x054a00,
                             0x0a9600,
                             Optional.of(ParticleTypes.HAPPY_VILLAGER),
-                            of(),
+                            of(Attributes.MOVEMENT_SPEED, TameableDragon.BASE_SPEED_GROUND + 0.2),
                             list(
                                     GreenToesAbility.INSTANCE
                             ),
@@ -100,14 +100,14 @@ class DragonBreedProvider extends DatapackBuiltinEntriesProvider
                                     new NearbyBlocksHabitat(0.5f, BlockTagProvider.FOREST_DRAGON_HABITAT_BLOCKS),
                                     new BiomeHabitat(2, BiomeTags.IS_JUNGLE)
                             ),
-                            immunities(context),
+                            immunities(context, DamageTypes.ON_FIRE, DamageTypes.IN_FIRE),
                             Optional.empty());
 
                     registerBuiltIn(context, DragonBreed.BuiltIn.GHOST,
                             0xc4c4c4,
                             0xc2f8ff,
                             Optional.empty(),
-                            of(),
+                            of(Attributes.ARMOR_TOUGHNESS, 4.0D),
                             list(
                                     ReaperStepAbility.INSTANCE
                             ),
@@ -117,14 +117,14 @@ class DragonBreedProvider extends DatapackBuiltinEntriesProvider
                                             new LightHabitat(2, true, 3)
                                     ))
                             ),
-                            immunities(context, DamageTypes.DROWN),
+                            immunities(context, DamageTypes.DROWN, DamageTypes.ON_FIRE, DamageTypes.IN_FIRE),
                             sound(DMLRegistry.GHOST_DRAGON_AMBIENT.get()));
 
                     registerBuiltIn(context, DragonBreed.BuiltIn.ICE,
                             0xffffff,
                             0x00E1FF,
                             Optional.of(ParticleTypes.SNOWFLAKE),
-                            of(),
+                            of(Attributes.ATTACK_DAMAGE, TameableDragon.BASE_DAMAGE + 2),
                             list(
                                     FrostWalkerAbility.create(3),
                                     SnowStepperAbility.INSTANCE
@@ -132,7 +132,7 @@ class DragonBreedProvider extends DatapackBuiltinEntriesProvider
                             list(
                                     new NearbyBlocksHabitat(0.5f, BlockTagProvider.ICE_DRAGON_HABITAT_BLOCKS)
                             ),
-                            immunities(context, DamageTypes.DROWN, DamageTypes.FREEZE),
+                            immunities(context, DamageTypes.DROWN, DamageTypes.FREEZE, DamageTypes.ON_FIRE, DamageTypes.IN_FIRE),
                             Optional.empty());
 
                     registerBuiltIn(context, DragonBreed.BuiltIn.NETHER,
@@ -152,7 +152,7 @@ class DragonBreedProvider extends DatapackBuiltinEntriesProvider
                             0x0062ff,
                             0x5999ff,
                             Optional.of(ParticleTypes.DRIPPING_WATER),
-                            of(),
+                            of(Attributes.MAX_HEALTH, TameableDragon.BASE_HEALTH * 1.25),
                             list(
                                     HydroStepAbility.INSTANCE
                             ),
@@ -160,7 +160,7 @@ class DragonBreedProvider extends DatapackBuiltinEntriesProvider
                                     new FluidHabitat(1f, FluidTags.WATER),
                                     new NearbyBlocksHabitat(0.5f, BlockTagProvider.WATER_DRAGON_HABITAT_BLOCKS)
                             ),
-                            immunities(context, DamageTypes.DROWN),
+                            immunities(context, DamageTypes.DROWN, DamageTypes.ON_FIRE, DamageTypes.IN_FIRE),
                             Optional.empty());
         });
     }

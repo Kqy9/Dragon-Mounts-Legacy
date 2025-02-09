@@ -977,37 +977,36 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
     @Override
     protected void positionRider(Entity ridden, MoveFunction pCallback)
     {
+        int i = this.getPassengers().indexOf(ridden);
+        if (i >= 0) {
+            boolean flag = i == 0;
+            float f = 0.9F;
+            float f1 = (float)(this.isRemoved() ? (double)0.01F : (double)0.01F + ridden.getMyRidingOffset()) + 2.5F;
+            if (this.getPassengers().size() > 1) {
+                if (!flag) {
+                    f = 0.0F;
+                }
 
-        // Get the list of passengers
-        List<Entity> passengers = getPassengers();
-
-        if (passengers.size() > 0) {
-            // Position and rotation for the first passenger (already in your original code)
-            Entity firstPassenger = passengers.get(0);
-            var rePos = new Vec3(0, getPassengersRidingOffset() + firstPassenger.getMyRidingOffset(), getScale())
-                    .yRot((float) Math.toRadians(-yBodyRot))
-                    .add(position());
-            pCallback.accept(firstPassenger, rePos.x, rePos.y, rePos.z);
-
-            // Fix rotation for first passenger
-            firstPassenger.xRotO = firstPassenger.getXRot();
-            firstPassenger.yRotO = firstPassenger.getYRot();
-            firstPassenger.setYBodyRot(yBodyRot);
-
-            // If there is a second passenger
-            if (passengers.size() > 1) {
-                Entity secondPassenger = passengers.get(1);
-                var rePosSecond = new Vec3(0, getPassengersRidingOffset() + secondPassenger.getMyRidingOffset(), getScale() - 1.2f)
-                        .yRot((float) Math.toRadians(-yBodyRot))
-                        .add(position());
-                pCallback.accept(secondPassenger, rePosSecond.x, rePosSecond.y, rePosSecond.z);
-
-                // Fix rotation for second passenger
-                secondPassenger.xRotO = secondPassenger.getXRot();
-                secondPassenger.yRotO = secondPassenger.getYRot();
-                secondPassenger.setYBodyRot(yBodyRot);
+                if (ridden instanceof Animal) {
+                    f += 0.2F;
+                }
             }
+
+            Vec3 vec3 = (new Vec3(0.0D, 0.0D, (double)f)).yRot(-this.yBodyRot * ((float)Math.PI / 180F));
+            pCallback.accept(ridden, this.getX() + vec3.x, this.getY() + (double)f1, this.getZ() + vec3.z);
+            this.clampRotation(ridden);
         }
+    }
+
+    private void clampRotation(Entity pEntity) {
+        pEntity.setYBodyRot(this.getYRot());
+        float f = pEntity.getYRot();
+        float f1 = Mth.wrapDegrees(f - this.getYRot());
+        float f2 = Mth.clamp(f1, -160.0F, 160.0F);
+        pEntity.yRotO += f2 - f1;
+        float f3 = f + f2 - f1;
+        pEntity.setYRot(f3);
+        pEntity.setYHeadRot(f3);
     }
 
     @Override
@@ -1178,9 +1177,12 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
     @Override
     public boolean fireImmune()
     {
-        if (super.fireImmune()) return true;
-        if (getBreed() == null) return false;
-        return getBreed().immunities().contains(damageSources().onFire().typeHolder());
+//        if (super.fireImmune()) return true;
+//        if (getBreed() == null) return false;
+//        return getBreed().immunities().contains(damageSources().onFire().typeHolder());
+
+        // Regardless of breed, to avoid the dragon damaging itself with its fire breath
+        return true;
     }
 
     @Override
