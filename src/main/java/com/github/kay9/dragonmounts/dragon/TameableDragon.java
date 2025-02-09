@@ -164,7 +164,7 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
 //        goalSelector.addGoal(1, new DragonLandGoal(this));
         goalSelector.addGoal(1, new FloatGoal(this));
         goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(3, new DragonFireballAttackGoal(this));
+        goalSelector.addGoal(3, new DragonFireballAttackGoal(this));
         goalSelector.addGoal(4, new MeleeAttackGoal(this, 1, true));
 //        goalSelector.addGoal(4, new DragonBabuFollowParent(this, 10));
         goalSelector.addGoal(5, new DragonFollowOwnerGoal(this, 1f, 10f, 3.5f, 32f));
