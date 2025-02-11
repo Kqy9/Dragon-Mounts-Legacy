@@ -352,6 +352,19 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
 
         super.tick();
 
+        // Ensure entity has an owner
+        if (this.getOwner() instanceof Player owner) {
+            // Check if the owner is still riding
+            if (!this.getPassengers().contains(owner)) {
+                dismountAllPassengers();
+            }
+
+            // Check if the owner is alive
+            if (!owner.isAlive()) {
+                dismountAllPassengers();
+            }
+        }
+
         if (isServer())
         {
             // periodically sync age data back to client
@@ -386,6 +399,12 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
 
         updateAgeProgress();
         for (var ability : getAbilities()) ability.tick(this);
+    }
+
+    public void dismountAllPassengers() {
+        for (Entity passenger : this.getPassengers()) {
+            passenger.stopRiding();
+        }
     }
 
     @Override
@@ -528,13 +547,20 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
         {
             if (isServer())
             {
-                player.startRiding(this);
-                navigation.stop();
-                setTarget(null);
+                // Ensure only the owner or others while the owner is riding can mount
+                if (getOwner() != null) {
+                    boolean isOwnerRiding = this.getPassengers().contains(getOwner());
+
+                    if (player.getUUID().equals(getOwner().getUUID()) || isOwnerRiding) {
+                        player.startRiding(this);
+                        navigation.stop();
+                        setTarget(null);
+                        setOrderedToSit(false);
+                        setInSittingPose(false);
+                        return InteractionResult.sidedSuccess(level().isClientSide);
+                    }
+                }
             }
-            setOrderedToSit(false);
-            setInSittingPose(false);
-            return InteractionResult.sidedSuccess(level().isClientSide);
         }
 
         return super.mobInteract(player, hand);
@@ -1228,7 +1254,7 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
     @Override
     public void onKeyPacket(Entity keyPresser) {
         if (keyPresser.isPassengerOfSameVehicle(this)) {
-            if (isServer()) {
+            if (isServer() && this.getOwner() != null && this.getOwner().equals(keyPresser)) {
                 Vec3 look = this.getLookAngle();
                 Level level = this.level();
                 LargeFireball largefireball = new LargeFireball(level, this, look.x, look.y, look.z, 1);
