@@ -1,4 +1,7 @@
 {
+  "attributes": {
+    "minecraft:generic.attack_damage": 10.0
+  },
   "abilities": [
     {
       "type": "dragonmounts:frost_walker",
@@ -18,6 +21,8 @@
     "type": "minecraft:snowflake"
   },
   "immunities": [
+    "minecraft:on_fire",
+    "minecraft:in_fire",
     "minecraft:drown",
     "minecraft:freeze",
     "minecraft:cactus",

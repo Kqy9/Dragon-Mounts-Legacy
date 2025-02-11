@@ -1,6 +1,6 @@
 {
   "attributes": {
-    "minecraft:generic.max_health": 75.0
+    "minecraft:generic.max_health": 90.0
   },
   "habitats": [
     {
@@ -11,6 +11,8 @@
     "type": "minecraft:portal"
   },
   "immunities": [
+    "minecraft:on_fire",
+    "minecraft:in_fire",
     "minecraft:cactus",
     "minecraft:sweet_berry_bush",
     "minecraft:dragon_breath"

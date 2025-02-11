@@ -38,6 +38,7 @@
 
   "key.dragonmounts.flight_descent": "Dragon Mount Flight Descent",
   "key.dragonmounts.camera_flight": "Dragon Mount Flight Commands",
+  "key.dragonmounts.shoot_fireball": "Dragon Mount Dragon Breath",
 
   "mount.dragon.vertical_controls": "Press %s to Ascend and %s to Descend",
   "mount.dragon.camera_controls.enabled": "%s will now Ascend Toward Your Direction",

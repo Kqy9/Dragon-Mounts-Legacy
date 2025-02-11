@@ -9,10 +9,7 @@ import com.github.kay9.dragonmounts.client.KeyMappings;
 import com.github.kay9.dragonmounts.client.MountCameraManager;
 import com.github.kay9.dragonmounts.client.MountControlsMessenger;
 import com.github.kay9.dragonmounts.data.CrossBreedingManager;
-import com.github.kay9.dragonmounts.dragon.ai.DragonBodyController;
-import com.github.kay9.dragonmounts.dragon.ai.DragonBreedGoal;
-import com.github.kay9.dragonmounts.dragon.ai.DragonFollowOwnerGoal;
-import com.github.kay9.dragonmounts.dragon.ai.DragonMoveController;
+import com.github.kay9.dragonmounts.dragon.ai.*;
 import com.github.kay9.dragonmounts.dragon.breed.BreedRegistry;
 import com.github.kay9.dragonmounts.dragon.breed.DragonBreed;
 import com.github.kay9.dragonmounts.dragon.egg.HatchableEggBlock;
@@ -50,6 +47,7 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SaddleItem;
@@ -82,7 +80,7 @@ import static net.minecraft.world.entity.ai.attributes.Attributes.*;
  * @author Kay9
  */
 @SuppressWarnings({"deprecation", "SameReturnValue"})
-public class TameableDragon extends TamableAnimal implements Saddleable, FlyingAnimal, PlayerRideable
+public class TameableDragon extends TamableAnimal implements Saddleable, FlyingAnimal, PlayerRideable, KeybindUsingMount
 {
     // base attributes
     public static final double BASE_SPEED_GROUND = 0.3; // actual speed varies from ground friction
@@ -166,13 +164,14 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
 //        goalSelector.addGoal(1, new DragonLandGoal(this));
         goalSelector.addGoal(1, new FloatGoal(this));
         goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        goalSelector.addGoal(3, new MeleeAttackGoal(this, 1, true));
+        goalSelector.addGoal(3, new DragonFireballAttackGoal(this));
+        goalSelector.addGoal(4, new MeleeAttackGoal(this, 1, true));
 //        goalSelector.addGoal(4, new DragonBabuFollowParent(this, 10));
         goalSelector.addGoal(5, new DragonFollowOwnerGoal(this, 1f, 10f, 3.5f, 32f));
-        goalSelector.addGoal(5, new DragonBreedGoal(this));
-        goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 0.85f));
-        goalSelector.addGoal(7, new LookAtPlayerGoal(this, LivingEntity.class, 16f));
-        goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        goalSelector.addGoal(6, new DragonBreedGoal(this));
+        goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.85f));
+        goalSelector.addGoal(8, new LookAtPlayerGoal(this, LivingEntity.class, 16f));
+        goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 
         targetSelector.addGoal(0, new OwnerHurtByTargetGoal(this));
         targetSelector.addGoal(1, new OwnerHurtTargetGoal(this));
@@ -353,6 +352,19 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
 
         super.tick();
 
+        // Ensure entity has an owner
+        if (this.getOwner() instanceof Player owner) {
+            // Check if the owner is still riding
+            if (!this.getPassengers().contains(owner)) {
+                dismountAllPassengers();
+            }
+
+            // Check if the owner is alive
+            if (!owner.isAlive()) {
+                dismountAllPassengers();
+            }
+        }
+
         if (isServer())
         {
             // periodically sync age data back to client
@@ -387,6 +399,12 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
 
         updateAgeProgress();
         for (var ability : getAbilities()) ability.tick(this);
+    }
+
+    public void dismountAllPassengers() {
+        for (Entity passenger : this.getPassengers()) {
+            passenger.stopRiding();
+        }
     }
 
     @Override
@@ -525,17 +543,24 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
         }
 
         // ride on
-        if (isTamedFor(player) && isSaddled() && !isHatchling() && !isFood(stack))
+        if (isSaddled() && !isHatchling() && !isFood(stack) && this.canAddPassenger(player))
         {
             if (isServer())
             {
-                player.startRiding(this);
-                navigation.stop();
-                setTarget(null);
+                // Ensure only the owner or others while the owner is riding can mount
+                if (getOwner() != null) {
+                    boolean isOwnerRiding = this.getPassengers().contains(getOwner());
+
+                    if (player.getUUID().equals(getOwner().getUUID()) || isOwnerRiding) {
+                        player.startRiding(this);
+                        navigation.stop();
+                        setTarget(null);
+                        setOrderedToSit(false);
+                        setInSittingPose(false);
+                        return InteractionResult.sidedSuccess(level().isClientSide);
+                    }
+                }
             }
-            setOrderedToSit(false);
-            setInSittingPose(false);
-            return InteractionResult.sidedSuccess(level().isClientSide);
         }
 
         return super.mobInteract(player, hand);
@@ -936,6 +961,10 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
         return !isHatchling() && !hasControllingPassenger() && super.canAttack(target);
     }
 
+    public boolean canAddPassenger(Entity passenger) {
+        return this.getPassengers().size() <= 2;
+    }
+
     /**
      * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example,
      * Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
@@ -974,21 +1003,36 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
     @Override
     protected void positionRider(Entity ridden, MoveFunction pCallback)
     {
-        if (hasPassenger(ridden))
-        {
-            var rePos = new Vec3(0, getPassengersRidingOffset() + ridden.getMyRidingOffset(), getScale())
-                    .yRot((float) Math.toRadians(-yBodyRot))
-                    .add(position());
-            pCallback.accept(ridden, rePos.x, rePos.y, rePos.z);
+        int i = this.getPassengers().indexOf(ridden);
+        if (i >= 0) {
+            boolean flag = i == 0;
+            float f = 0.9F;
+            float f1 = (float)(this.isRemoved() ? (double)0.01F : (double)0.01F + ridden.getMyRidingOffset()) + 2.5F;
+            if (this.getPassengers().size() > 1) {
+                if (!flag) {
+                    f = 0.0F;
+                }
 
-            // fix rider rotation
-            if (getFirstPassenger() instanceof LivingEntity)
-            {
-                ridden.xRotO = ridden.getXRot();
-                ridden.yRotO = ridden.getYRot();
-                ridden.setYBodyRot(yBodyRot);
+                if (ridden instanceof Animal) {
+                    f += 0.2F;
+                }
             }
+
+            Vec3 vec3 = (new Vec3(0.0D, 0.0D, (double)f)).yRot(-this.yBodyRot * ((float)Math.PI / 180F));
+            pCallback.accept(ridden, this.getX() + vec3.x, this.getY() + (double)f1, this.getZ() + vec3.z);
+            this.clampRotation(ridden);
         }
+    }
+
+    private void clampRotation(Entity pEntity) {
+        pEntity.setYBodyRot(this.getYRot());
+        float f = pEntity.getYRot();
+        float f1 = Mth.wrapDegrees(f - this.getYRot());
+        float f2 = Mth.clamp(f1, -160.0F, 160.0F);
+        pEntity.yRotO += f2 - f1;
+        float f3 = f + f2 - f1;
+        pEntity.setYRot(f3);
+        pEntity.setYHeadRot(f3);
     }
 
     @Override
@@ -1159,9 +1203,12 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
     @Override
     public boolean fireImmune()
     {
-        if (super.fireImmune()) return true;
-        if (getBreed() == null) return false;
-        return getBreed().immunities().contains(damageSources().onFire().typeHolder());
+//        if (super.fireImmune()) return true;
+//        if (getBreed() == null) return false;
+//        return getBreed().immunities().contains(damageSources().onFire().typeHolder());
+
+        // Regardless of breed, to avoid the dragon damaging itself with its fire breath
+        return true;
     }
 
     @Override
@@ -1202,5 +1249,80 @@ public class TameableDragon extends TamableAnimal implements Saddleable, FlyingA
     public boolean hasLocalDriver()
     {
         return getControllingPassenger() instanceof Player p && p.isLocalPlayer();
+    }
+
+    @Override
+    public void onKeyPacket(Entity keyPresser) {
+        if (keyPresser.isPassengerOfSameVehicle(this)) {
+            if (isServer() && this.getOwner() != null && this.getOwner().equals(keyPresser)) {
+                Vec3 look = this.getLookAngle();
+                Level level = this.level();
+                LargeFireball largefireball = new LargeFireball(level, this, look.x, look.y, look.z, 1);
+                largefireball.setOwner(keyPresser);
+                largefireball.setPos(this.getX() + look.x * 8.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + look.z * 8.0D);
+                level.addFreshEntity(largefireball);
+            }
+        }
+    }
+
+    public class DragonFireballAttackGoal extends Goal {
+        private final TameableDragon dragon;
+        private int attackCooldown;
+
+        public DragonFireballAttackGoal(TameableDragon dragon) {
+            this.dragon = dragon;
+            this.setFlags(EnumSet.of(Goal.Flag.LOOK));
+            this.attackCooldown = 0; // Initial cooldown
+        }
+
+        @Override
+        public boolean canUse() {
+            LivingEntity target = this.dragon.getTarget();
+            if (target == null || !this.dragon.hasLineOfSight(target)) {
+                return false;
+            }
+
+            double distance = this.dragon.distanceToSqr(target);
+
+            // Only use fireball if the target is farther than 5 blocks (5*5 = 25)
+            return distance > 25;
+        }
+
+        @Override
+        public void tick() {
+            LivingEntity target = this.dragon.getTarget();
+            if (target == null) return;
+
+            // Look at the target
+            this.dragon.getLookControl().setLookAt(target, 30.0F, 30.0F);
+
+            // Attack cooldown handling
+            if (attackCooldown > 0) {
+                attackCooldown--;
+                return;
+            }
+
+            liftOff();
+            setFlying(true);
+            shootFireball(target);
+            attackCooldown = 5; // Reset cooldown (0.25 seconds)
+            setFlying(false);
+        }
+
+        private void shootFireball(LivingEntity target) {
+            Level level = this.dragon.level();
+            if (isServer()) {
+                // Get direction towards target
+                double dx = target.getX() - dragon.getX();
+                double dy = target.getY(0.5) - dragon.getY(0.5);
+                double dz = target.getZ() - dragon.getZ();
+
+                // Create and shoot fireball
+                LargeFireball fireball = new LargeFireball(level, this.dragon, dx, dy, dz, 1);
+                fireball.setOwner(this.dragon);
+                fireball.setPos(this.dragon.getX(), this.dragon.getY(0.5D) + 0.5D, this.dragon.getZ());
+                level.addFreshEntity(fireball);
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.github.kay9.dragonmounts;
 
 import com.github.kay9.dragonmounts.client.MountCameraManager;
+import com.github.kay9.dragonmounts.network.FireballPacket;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.MinecraftForge;
@@ -50,6 +51,14 @@ public class ForgeModImpl
 
     private static void setupEvents()
     {
+        NETWORK.registerMessage(
+                0, // Packet ID
+                FireballPacket.class, // Packet class
+                FireballPacket::encode, // Encoding logic
+                FireballPacket::decode, // Decoding logic
+                FireballPacket::handle // Handling logic when the packet is received
+        );
+
         var modBus = FMLJavaModLoadingContext.get().getModEventBus();
         var bus = MinecraftForge.EVENT_BUS;
 

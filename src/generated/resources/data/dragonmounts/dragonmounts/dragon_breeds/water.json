@@ -1,4 +1,7 @@
 {
+  "attributes": {
+    "minecraft:generic.max_health": 75.0
+  },
   "abilities": [
     {
       "type": "dragonmounts:hydro_step"
@@ -19,6 +22,8 @@
     "type": "minecraft:dripping_water"
   },
   "immunities": [
+    "minecraft:on_fire",
+    "minecraft:in_fire",
     "minecraft:drown",
     "minecraft:cactus",
     "minecraft:sweet_berry_bush",

@@ -9,6 +9,8 @@
     }
   ],
   "immunities": [
+    "minecraft:on_fire",
+    "minecraft:in_fire",
     "minecraft:cactus",
     "minecraft:sweet_berry_bush",
     "minecraft:dragon_breath"

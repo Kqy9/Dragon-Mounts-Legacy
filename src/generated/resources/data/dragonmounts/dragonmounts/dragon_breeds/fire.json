@@ -1,4 +1,7 @@
 {
+  "attributes": {
+    "minecraft:generic.attack_damage": 10.0
+  },
   "abilities": [
     {
       "type": "dragonmounts:hot_feet"
